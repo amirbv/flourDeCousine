@@ -1,4 +1,4 @@
-#Flour de Cousine
+# Flour de Cousine
 A personal project for a class in university
 
 # Getting Started with Create React App
