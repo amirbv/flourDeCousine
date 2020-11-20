@@ -6,14 +6,14 @@ export default function HomeData() {
     <section className="home-data">
       <Grid container spacing={3} p={2}>
         <Grid item xs={6}>
-          <Card>
+          <Card style={{height: '100%'}}>
             <CardMedia
               height={140}
               component="img"
               image="/images/pexels-chan-walrus-958545.jpg"
             />
             <CardContent>
-              <Typography component="h3" variant="subtitle1">
+              <Typography component="h3" variant="h5">
                 Bienvenidos a nuestro restaurante
               </Typography>
               <Typography variant="caption">
@@ -23,14 +23,14 @@ export default function HomeData() {
           </Card>
         </Grid>
         <Grid item xs={6}>
-          <Card>
+          <Card style={{height: '100%'}}>
             <CardMedia
               height={140}
               component="img"
               image="/images/pexels-elevate-1267320.jpg"
             />
             <CardContent>
-              <Typography component="h3" variant="subtitle1">
+              <Typography component="h3" variant="h5">
                 Nuestra busqueda
               </Typography>
               <Typography variant="caption">

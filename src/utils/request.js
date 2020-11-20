@@ -1,6 +1,40 @@
 import axios from 'axios';
 
-const API_URI = 'http://localhost:3000'
+const API_URI = 'http://localhost:3000';
+
+/* POSTS */
+
+export const getPostsList = async () => {
+  try {
+    return await axios.get(`${API_URI}/api/posts`).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    throw err;
+  }
+}
+
+export const getPost = async (id) => {
+  try {
+    return await axios.get(`${API_URI}/api/posts/${id}`).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    throw err;
+  }
+}
+
+/* BOOKS */
+export const getBooksList = async () => {
+  try {
+    return await axios.get(`${API_URI}/api/books`).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 /** MasterNodes **/
 export const list = async () => {

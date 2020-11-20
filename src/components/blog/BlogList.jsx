@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getPostsList } from '../../utils/request';
 import BlogElement from './BlogElement';
 
-const posts = [
+
+
+/* const postsFake = [
   {
     title: 'holaaaaaaaaaaaa aaaaaaaa aaaaaaaaaaa',
     image: 'https://www.hola.com/imagenes/cocina/recetas/20191014151334/recetas-rapidas-faciles-microondas/0-731-443/recetas-micro-m.jpg',
@@ -27,16 +30,34 @@ const posts = [
     image: 'https://www.hola.com/imagenes/cocina/recetas/20191014151334/recetas-rapidas-faciles-microondas/0-731-443/recetas-micro-m.jpg',
     id: '124549821'
   }
-];
+]; */
 
 export default function BlogList() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const { data } = await getPostsList();
+        console.log(data);
+        if (data) {
+          setPosts(data);
+        }
+        
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getPosts();
+  }, []);
 
 
   return (
-    <div className="blog-posts-container">
+    <div className="grid-container">
         {
           posts.map((post) => (
-            <BlogElement key={post.id} post={post} />
+            <BlogElement key={post._id} post={post} />
           ))
         }
     </div>

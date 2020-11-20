@@ -1,7 +1,7 @@
 :root {
   --green: #80cbc4; /*teal-200*/
   --purple: #673ab7; /*deepPurple-500*/
-  --beige: #ffecb3; /*amber-100*/
+  --beige: #fff3e0; /*amber-100*/
 }
 
 body {
@@ -14,7 +14,7 @@ body {
 }
 
 .app {
-  background-color: var(--green);
+  background-color: var(--beige);
   position: relative;
   min-height: 100vh;
 }
@@ -43,10 +43,73 @@ body {
   margin-top: 20px;
 }
 
-.blog-posts-container {
+.grid-container {
   margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
   row-gap: 10px;
   column-gap: 10px;
+  align-content: center;
 }
+.grid-container > div:last-child:first-child {
+  max-width: 350px;
+  margin: 0 auto;
+}
+.grid-container > div:last-child:first-child .book-image {
+  max-width: 500px;
+}
+.book-card {
+  height: 100%;
+  cursor: pointer;
+
+}
+.book-card .book-card-image {
+  position: relative;
+  width: 100%;
+}
+
+.book-card .book-card-image .absolute-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: #ffffff;
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity .5s ease-in;
+}
+.book-card:hover .book-card-image .absolute-description{
+  opacity: 1;
+}
+
+.post-content {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-content > div {
+  margin-top: 20px;
+}
+
+.post-image-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.post-image {
+  height: 500px;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+}
+

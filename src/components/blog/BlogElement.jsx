@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom';
 export default function BlogElement({ post }) {
   
   return (
-    <Card>
-      <Link to={`blog/${post.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+    <Card style={{height: '100%'}}>
+      <Link to={`blog/${post._id}`} style={{textDecoration: 'none', color: 'inherit'}}>
         <CardMedia
           height={300}
           component="img"
-          image={post.image}
+          image={post.imageURL}
         />
         <CardContent>
-          <Typography component="h3" variant="subtitle1" noWrap>
+          <Typography component="h3" variant="h5" noWrap>
             {post.title}
           </Typography>
         </CardContent>
