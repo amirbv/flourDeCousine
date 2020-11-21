@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import SalesTable from './sales/SalesTable';
 
-export default function DashSales() {
+export default function DashSales({ user }) {
+  
   return (
-    <div>
-      
-    </div>
+    <>
+      {
+        user && <SalesTable user={user} />
+      }
+    </>
   )
 }

@@ -19,30 +19,38 @@ export default function Login() {
         swal.showLoading()
       }
     });
-    
-    const response = await login({
-      username: data.email,
-      password: data.password
-    });
-
-    if (response.status === 401) {
+    try {
+      const response = await login({
+        username: data.email,
+        password: data.password
+      });
+      
+      if (response.status === 401) {
+        swal.fire({
+          icon: 'error',
+          title: 'Usuario o contraseña incorrectos'
+        })
+        return setSubmitting(false);
+      }
+      setSubmitting(false);
+      console.log(response);
+      setUser(response.data);
+      
+      await swal.fire({
+        icon: 'success',
+        title: 'Has iniciado sesión exitosamente',
+        timer: 1500
+      })
+      history.push('/dashboard');
+      history.go(0);
+    } catch (error) {
       swal.fire({
         icon: 'error',
-        title: 'Usuario o contraseña incorrectos'
+        title: 'Error',
+        text: error.message
       })
-      return setSubmitting(false);
+      setSubmitting(false);
     }
-    console.log(response);
-    setUser(response.data);
-    history.push('/dashboard');
-    history.go(0);
-    
-    swal.fire({
-      icon: 'success',
-      title: 'Has iniciado sesión exitosamente'
-    })
-    
-    setSubmitting(false);
   }
   return (
     <section className="login">

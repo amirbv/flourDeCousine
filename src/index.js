@@ -7,12 +7,10 @@ import ScrollToTop from './components/global/ScrollToTop';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
     <BrowserRouter>
       <ScrollToTop />
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 

@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import swal from 'sweetalert2';
+
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +9,9 @@ import TableCell from '@material-ui/core/TableCell';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Card, CardContent, Typography } from '@material-ui/core';
 
-import { getUsersList, removeUser } from '../../../utils/request';
-import swal from 'sweetalert2';
 import UserAddForm from './UserAddForm';
+
+import { createUser, getUsersList, removeUser } from '../../../utils/request';
 
 export default function UserTable({ user }) {
   const [users, setUsers] = useState([]);
@@ -31,7 +33,6 @@ export default function UserTable({ user }) {
     getUsers();
   }, [getUsers]);
 
-  
 
   const deleteUser = async (id) => {
     const result = await swal.fire({
@@ -46,8 +47,7 @@ export default function UserTable({ user }) {
 
     if (result.isConfirmed) {
       try {
-        const deleted = await removeUser(user.token, id);
-        console.log(deleted)
+        await removeUser(user.token, id);
         swal.fire({
           icon: "success",
           title: "El usuario fue eliminado correctamente",
@@ -64,12 +64,48 @@ export default function UserTable({ user }) {
     }
 
   }
+  const addUser = async (data) => {
+    try {
+      const response = await createUser(user.token, {
+        username: data.email,
+        role: data.role,
+        password: data.password
+      });
+
+      if (response.status === 401) {
+        swal.fire({
+          icon: 'error',
+          title: 'Error en la creación',
+          text: response.data.msg
+        });
+        return
+      }
+      else {
+        swal.fire({
+          icon: "success",
+          title: "El usuario fue creado correctamente",
+          timer: 1500,
+          showConfirmButton: false
+        });
+      }
+      
+      await getUsers();
+
+    } catch (error) {
+      console.log({error})
+      swal.fire({
+        icon: "error",
+        title: "Hubo un error intente nuevamente",
+        text: error.message
+      });
+    }
+  }
 
   return (
     <Card>
       <CardContent>
         <Typography variant="h5">Añadir usuario</Typography>
-        <UserAddForm user={user} />
+        <UserAddForm createUser={addUser} />
         <Typography variant="h5">Lista de usuarios</Typography>
         <Table size="small">
           <TableHead>

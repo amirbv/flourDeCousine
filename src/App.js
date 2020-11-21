@@ -24,7 +24,7 @@ function App() {
       <CssBaseline />
       <Header />
       <div className={`app ${location.pathname === '/admin-login' ? 'login-page': ''}`}>
-        <Container fixed style={{padding: '20px 0'}}>
+        <Container maxWidth="lg" style={{padding: '20px 0'}}>
           <Switch>
             <PublicRoute restricted={false} component={Home} exact path='/' />
             <PublicRoute restricted={false} component={Blog} exact path='/blog' />

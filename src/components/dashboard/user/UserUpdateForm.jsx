@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers";
-import * as yup from "yup";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { Collapse } from 'react-collapse';
 import { Typography, TextField, Card, CardContent, Button } from '@material-ui/core';
 import { amber } from '@material-ui/core/colors';
@@ -67,7 +67,7 @@ export default function UserUpdateForm({ user }) {
 
   return (
     <div className="mr-top">
-      <Typography variant="h3" component="h2">{user?.username}</Typography>
+      <Typography variant="h4" component="h2" noWrap>{user?.username}</Typography>
       <div style={{minHeight: '70px'}}>
         <Collapse
             isOpened={user?.role === 'admin' ? collapseOpen : true}
@@ -115,7 +115,7 @@ export default function UserUpdateForm({ user }) {
                     variant="contained"
                     style={{background: amber[700]}}
                   >
-                    Cambiar contraseña
+                    Cambiar
                   </Button>
                   {user?.role === 'admin' && <Button
                     type="button"

@@ -1,9 +1,12 @@
 import React from 'react'
+import BooksTable from './books/BooksTable'
 
-export default function DashBook() {
+export default function DashBook({ user }) {
   return (
-    <div>
-      
-    </div>
+    <>
+      {
+        user && <BooksTable user={user}/>
+      }
+    </>
   )
 }

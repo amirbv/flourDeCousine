@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function DashBlog({ user }) {
+export default function UpdateBookForm() {
   return (
     <div>
       

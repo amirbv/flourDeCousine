@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 import { amber } from "@material-ui/core/colors";
 
@@ -10,9 +10,10 @@ const schema = yup.object().shape({
   password: yup.string().required('La contraseña es requerida'),
 });
 
+
 export default function LoginForm({ submitting, onLogin }) {
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   });
 
   return (

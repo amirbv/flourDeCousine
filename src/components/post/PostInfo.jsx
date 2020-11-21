@@ -5,8 +5,10 @@ import BackLink from '../global/BackLink';
 
 export default function PostInfo({ post }) {
   const { title, content, imageURL, ingredients } = post;
-
-  const ingredientsArray = ingredients.split('\n').filter(string => (string !== '')).filter(string => (string !== ' '));
+  let ingredientsArray;
+  if (ingredients) {
+    ingredientsArray = ingredients.split('\n').filter(string => (string !== '')).filter(string => (string !== ' '));
+  }
   const description = content.split('\n').filter(string => (string !== '')).filter(string => (string !== ' '));
 
   return (
