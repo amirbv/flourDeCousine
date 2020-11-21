@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 import { Container, CssBaseline } from '@material-ui/core';
 
 import PublicRoute from './components/global/PublicRoute';
@@ -17,12 +17,13 @@ import Error from './pages/Error';
 
 
 function App() {
+  const location = useLocation();
+  
   return (
-
     <React.Fragment>
       <CssBaseline />
       <Header />
-      <div className="app">
+      <div className={`app ${location.pathname === '/admin-login' ? 'login-page': ''}`}>
         <Container fixed style={{padding: '20px 0'}}>
           <Switch>
             <PublicRoute restricted={false} component={Home} exact path='/' />

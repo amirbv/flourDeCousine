@@ -5,7 +5,7 @@ export function setUser(user) {
 export function getUser() {
   let user = window.sessionStorage.getItem('user');
   if (user) {
-    return {user:JSON.parse(user)};
+    return JSON.parse(user);
   }
   return null;
 }

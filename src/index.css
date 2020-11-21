@@ -19,6 +19,22 @@ body {
   min-height: 100vh;
 }
 
+.app.login-page {
+  background-image: url(./images/pexels-daria-shevtsova-4147872.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+.nav-link {
+  text-decoration: none; 
+  color: inherit;
+  padding: 10px;
+  margin: 0 5px;
+  font-size: 1rem;
+}
+
 .banner {
   height: 75vh;
   background: url(./images/pexels-pixabay-262978.jpg);
@@ -39,7 +55,7 @@ body {
   line-height: 1;
 }
 
-.home-data {
+.home-data, .mr-top {
   margin-top: 20px;
 }
 
@@ -49,8 +65,15 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
   row-gap: 10px;
   column-gap: 10px;
-  align-content: center;
 }
+
+.grid-container.alt {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .grid-container > div:last-child:first-child {
   max-width: 350px;
   margin: 0 auto;
@@ -58,6 +81,8 @@ body {
 .grid-container > div:last-child:first-child .book-image {
   max-width: 500px;
 }
+
+
 .book-card {
   height: 100%;
   cursor: pointer;
@@ -70,6 +95,7 @@ body {
 
 .book-card .book-card-image .absolute-description {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 10px;
@@ -112,4 +138,56 @@ body {
   border-radius: 10px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
 }
+.form-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr;
+}
 
+.form-centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-centered h2{
+  margin-bottom: 20px;
+}
+.form-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group .MuiTextField-root + .MuiTextField-root {
+  margin-left: 10px;
+}
+.form-horizontal button + button {
+  margin-left: 10px;
+}
+
+.form-group-button {
+  text-align: center;
+}
+
+.icon-back-link {
+  font-size: 32px;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+}
+
+
+.MuiCardMedia-root.dash-icon {
+  font-size: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+}

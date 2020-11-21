@@ -1,8 +1,13 @@
 import React from 'react'
 import { Card, CardContent, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import BackLink from '../global/BackLink';
 
 export default function PostInfo({ post }) {
   const { title, content, imageURL, ingredients } = post;
+
+  const ingredientsArray = ingredients.split('\n').filter(string => (string !== '')).filter(string => (string !== ' '));
+  const description = content.split('\n').filter(string => (string !== '')).filter(string => (string !== ' '));
 
   return (
     <section className="post-content">
@@ -19,7 +24,14 @@ export default function PostInfo({ post }) {
         ingredients && (
           <div className="ingredients">
             <Typography variant="h4">Ingredientes</Typography>
-            <Typography variant="subtitle1">{ingredients}</Typography>
+            <ul>
+              {
+                ingredientsArray.map((ingredient, index) => {
+                  return <li key={index}><Typography style={{lineHeight: 2}}>{ingredient}</Typography></li>
+                })
+              }
+
+            </ul>
           </div>
         )
       }
@@ -31,9 +43,17 @@ export default function PostInfo({ post }) {
                 <Typography variant="h4">Preparación</Typography>
               )
             }
-            <Typography style={{lineHeight: 2}}>{content}</Typography>
+            {
+              description.map((content, index) => {
+                return <Typography key={index} style={{lineHeight: 2}}>{content}</Typography>
+              })
+            }
           </CardContent>
         </Card>
+      </div>
+
+      <div>
+        <BackLink to="/blog" title="Volver al blog" />
       </div>
     </section>
   )

@@ -2,6 +2,72 @@ import axios from 'axios';
 
 const API_URI = 'http://localhost:3000';
 
+/* SESSION */
+
+export const login = async (data) => {
+  try {
+    return await axios.post(`${API_URI}/api/signin/admin`, data).catch(err => {
+      throw err
+    })
+  } catch (err) {
+    if (err.response) {
+      return {status: err.response.status, data: err.response.data}
+    }
+    else {
+      throw err;
+    }
+  }
+}
+
+export const createUser = async (data) => {
+  try {
+    return await axios.post(`${API_URI}/api/signup/admin`, data).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    if (err.response) {
+      return {status: err.response.status, data: err.response.data}
+    }
+    else {
+      throw err;
+    }
+  }
+}
+
+export const removeUser = async (token, id) => {
+  try {
+    return await axios.delete(`${API_URI}/api/admin/${id}`, {
+      headers: {
+        Authorization: token
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    throw err;
+  }
+}
+
+export const changePassword = async (token, data) => {
+  try {
+    return await axios.put(`${API_URI}/api/signin/admin/change`, data, {
+      headers: {
+        Authorization: token
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    if (err.response) {
+      return {status: err.response.status, data: err.response.data}
+    }
+    else {
+      throw err;
+    }
+  }
+}
+
+
 /* POSTS */
 
 export const getPostsList = async () => {
@@ -35,6 +101,21 @@ export const getBooksList = async () => {
   }
 }
 
+/* USERS */
+
+export const getUsersList = async (token) => {
+  try {
+    return await axios.get(`${API_URI}/api/admins`, {
+      headers: {
+        Authorization: token
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    throw err;
+  }
+}
 
 /** MasterNodes **/
 export const list = async () => {
@@ -285,29 +366,7 @@ export const destroyProposal = async (token, id) => {
 }
 
 /** Auth **/
-export const login = async (data) => {
-  try {
-    return await axios.post(`${API_URI}/auth/login`, data).catch(err => {
-      throw err
-    })
-  } catch (err) {
-    if (err.response) {
-      return {status: err.response.status, error: err.response.data}
-    } else {
-      throw err
-    }
-  }
-}
 
-export const register = async (data) => {
-  try {
-    return await axios.post(`${API_URI}/auth/register`, data).catch(err => {
-      throw err;
-    })
-  } catch (err) {
-    throw err;
-  }
-}
 /** User **/
 
 export const getUserInfo = async (token, id) => {

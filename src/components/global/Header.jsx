@@ -1,21 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Tabs, Tab } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { amber } from '@material-ui/core/colors';
 
 
 
 export default function Header() {
-  
-
-  function LinkTab(props) {
-    return (
-      <Tab
-        component={Link}
-        {...props}
-      />
-    );
-  }
 
   return (
     <AppBar style={{backgroundColor: amber[700]}} position="relative">
@@ -25,10 +15,10 @@ export default function Header() {
             Flour de Cousine
           </Link>
         </Typography>
-        <Tabs aria-label="Navigation bar" value={false} >
-          <LinkTab label="Blog" to="/blog" />
-          <LinkTab label="Libros" to="/libros"  />
-        </Tabs>
+        <div>
+          <Link to="/blog" className="nav-link">Blog</Link>
+          <Link to="/libros" className="nav-link">Libros</Link>
+        </div>
       </Toolbar>
     </AppBar>
   )
