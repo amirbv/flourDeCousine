@@ -40,7 +40,7 @@ export default function BookItem({ book }) {
           data-item-id={book._id}
           data-item-image={book.imageURL}
           data-item-name={book.title}
-          data-item-url={path}
+          data-item-url={path + '/'}
           data-item-price={book.price}
           variant="contained"
           style={{background: amber[500]}}
