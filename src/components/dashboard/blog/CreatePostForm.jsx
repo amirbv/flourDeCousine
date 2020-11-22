@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextField, Button, Input, FormHelperText, FormControl, InputLabel } from "@material-ui/core";
+import { amber } from "@material-ui/core/colors";
 
 
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];
@@ -99,7 +100,7 @@ export default function CreatePostForm({ open, handleOpen, onCreate }) {
             <Button type="button" onClick={handleOpen} color="secondary">
               Cancelar
             </Button>
-            <Button type="submit" color="primary">
+            <Button type="submit" variant="contained" style={{background: amber[700]}}>
               Añadir
             </Button>
           </DialogActions>

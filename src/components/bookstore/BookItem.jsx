@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
 import { amber } from "@material-ui/core/colors";
-
+import BookShop from "./BookShop";
 
 
 export default function BookItem({ book }) {
+  const [openShop, setOpenShop] = useState(false);
 
   return (
     <>
@@ -35,12 +36,12 @@ export default function BookItem({ book }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" style={{background: amber[500]}}>
+          <Button onClick={() => setOpenShop(true)} variant="contained" style={{background: amber[500]}}>
             Comprar
           </Button>
         </CardActions>
       </Card>
-    
+      <BookShop open={openShop} handleOpen={() => setOpenShop(false)} book={book} />
     </>
   );
 }

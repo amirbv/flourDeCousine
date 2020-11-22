@@ -53,10 +53,10 @@ export default function SalesTable({ user }) {
                   sales.map((sale, index) => (
                     <TableRow key={sale._id}>
                       <TableCell>{++index}</TableCell>
-                      <TableCell>{sale.books?.title || 'not available or deleted'}</TableCell>
+                      <TableCell>{sale.books}</TableCell>
                       <TableCell>{sale.users.email}</TableCell>
                       <TableCell>{sale.users.name} {sale.users.lastname}</TableCell>
-                      <TableCell>#######</TableCell>
+                      <TableCell>{sale._id}</TableCell>
                       <TableCell>{sale.created_at}</TableCell>
                       <TableCell>{sale.price}</TableCell>
                     </TableRow>

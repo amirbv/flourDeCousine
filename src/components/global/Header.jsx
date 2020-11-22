@@ -8,7 +8,7 @@ import { amber } from '@material-ui/core/colors';
 export default function Header() {
 
   return (
-    <AppBar style={{backgroundColor: amber[700]}} position="relative">
+    <AppBar style={{backgroundColor: amber[700],zIndex: '800'}} position="relative">
       <Toolbar>
         <Typography variant="h6" style={{flex: 1}}>
           <Link to='/' style={{ 'textDecoration': 'none', 'color': 'inherit' }}>

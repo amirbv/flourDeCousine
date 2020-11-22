@@ -263,3 +263,21 @@ export const getSalesList = async (token) => {
     throw err;
   }
 }
+
+export const createNewSale = async (data, id) => {
+
+  try {
+    return await axios.post(`${API_URI}/api/books/${id}`, data).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data
+      }
+    } else {
+      throw err;
+    }
+  }
+}

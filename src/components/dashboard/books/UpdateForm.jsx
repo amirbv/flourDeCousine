@@ -5,6 +5,7 @@ import * as yup from "yup";
 
 import DialogActions from "@material-ui/core/DialogActions";
 import { TextField, Button, Input, FormHelperText, FormControl, InputLabel } from "@material-ui/core";
+import { amber } from "@material-ui/core/colors";
 
 
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
@@ -157,7 +158,7 @@ export default function UpdateForm({ onUpdate, handleOpen, book }) {
         <Button type="button" onClick={handleOpen} color="secondary">
           Cancelar
         </Button>
-        <Button type="submit" color="primary">
+        <Button type="submit" variant="contained" style={{background: amber[700]}}>
           Añadir
         </Button>
       </DialogActions>

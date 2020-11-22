@@ -12,6 +12,7 @@ import {
   FormControl,
   InputLabel,
 } from "@material-ui/core";
+import { amber } from "@material-ui/core/colors";
 
 const SUPPORTED_FORMATS = ["image/jpeg", "image/png"];
 const schema = yup.object().shape({
@@ -113,7 +114,7 @@ export default function UpdateForm({ onUpdate, handleOpen, post }) {
         <Button type="button" onClick={handleOpen} color="secondary">
           Cancelar
         </Button>
-        <Button type="submit" color="primary">
+        <Button type="submit" variant="contained" style={{background: amber[700]}}>
           Añadir
         </Button>
       </DialogActions>

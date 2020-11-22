@@ -24,7 +24,7 @@ export default function Footer() {
   }
 
   return (
-    <AppBar style={{backgroundColor: amber[700]}} position="relative">
+    <AppBar style={{backgroundColor: amber[700],zIndex: '800'}} position="relative" component="footer" >
       <Toolbar>
         <Typography style={{flex: 1}}>
           Le Flour de Cousine - {today.getFullYear()}©
