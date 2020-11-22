@@ -6,7 +6,7 @@ import { amber } from "@material-ui/core/colors";
 
 
 export default function BookItem({ book }) {
-  const path = useRouteMatch();
+  const { path } = useRouteMatch();
 
   return (
     <Card className="book-card">
