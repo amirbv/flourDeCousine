@@ -22,7 +22,7 @@ export default function Dashboard() {
   return (
     <Switch>
       <Route path={path} exact>
-        <DashList />
+        <DashList user={user} />
       </Route>
       <Route path={path + '/usuarios'} exact>
         <DashUser user={user} />

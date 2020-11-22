@@ -1,7 +1,13 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { useRouteMatch } from "react-router-dom";
+import { amber } from "@material-ui/core/colors";
+
+
 
 export default function BookItem({ book }) {
+  const path = useRouteMatch();
+
   return (
     <Card className="book-card">
       <div className="book-card-image">
@@ -13,7 +19,6 @@ export default function BookItem({ book }) {
         <div className="absolute-description">
           <Typography variant="caption">
             {book.description}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus reprehenderit dolorum cumque qui nihil doloribus fugiat eum veritatis voluptatem esse nobis, porro eligendi consectetur ipsam ipsa aperiam explicabo ratione inventore!
           </Typography>
           <Typography variant="caption">Editorial: {book.publisher}</Typography>
         </div>
@@ -25,7 +30,24 @@ export default function BookItem({ book }) {
         <Typography component="p" variant="caption" noWrap>
           {book.author}
         </Typography>
+        <Typography component="p" variant="subtitle2" >
+          ${book.price}
+        </Typography>
       </CardContent>
+      <CardActions>
+        <Button
+          className="snipcart-add-item"
+          data-item-id={book._id}
+          data-item-image={book.imageURL}
+          data-item-name={book.title}
+          data-item-url={path}
+          data-item-price={book.price}
+          variant="contained"
+          style={{background: amber[500]}}
+        >
+          Comprar
+        </Button>
+      </CardActions>
     </Card>
   );
 }

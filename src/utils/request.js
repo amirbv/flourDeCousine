@@ -116,6 +116,66 @@ export const getPost = async (id) => {
   }
 }
 
+export const addPost = async (token, data) => {
+
+  try {
+    return await axios.post(`${API_URI}/api/post/admin/`, data, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'multipart/form-data'
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data
+      }
+    } else {
+      throw err;
+    }
+  }
+}
+
+export const updatePost = async (token, data, id) => {
+
+  try {
+    return await axios.put(`${API_URI}/api/posts/${id}`, data, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'multipart/form-data'
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data
+      }
+    } else {
+      throw err;
+    }
+  }
+}
+
+export const removePost = async (token, id) => {
+  try {
+    return await axios.delete(`${API_URI}/api/posts/${id}`, {
+      headers: {
+        Authorization: token
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    throw err;
+  }
+}
+
 /* BOOKS */
 
 export const getBooksList = async () => {
@@ -140,7 +200,37 @@ export const addBook = async (token, data) => {
       throw err;
     })
   } catch (err) {
-    throw err;
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data
+      }
+    } else {
+      throw err;
+    }
+  }
+}
+
+export const updateBook = async (token, data, id) => {
+
+  try {
+    return await axios.put(`${API_URI}/api/admin/books/${id}`, data, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'multipart/form-data'
+      }
+    }).catch(err => {
+      throw err;
+    })
+  } catch (err) {
+    if (err.response) {
+      return {
+        status: err.response.status,
+        data: err.response.data
+      }
+    } else {
+      throw err;
+    }
   }
 }
 

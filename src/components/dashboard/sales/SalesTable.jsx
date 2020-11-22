@@ -16,7 +16,7 @@ export default function SalesTable({ user }) {
   const getSales = useCallback(async () => {
     try {
       const { data } = await getSalesList(user.token);
-      console.log(data);
+      // console.log(data);
       if (data) {
         setSales(data);
       }
@@ -67,7 +67,7 @@ export default function SalesTable({ user }) {
           }
         </Table>
         {
-          sales.length === 0 && <Typography align="center" style={{marginTop: '20px'}}>No se han podido cargar las ventas</Typography>
+          sales.length === 0 && <Typography align="center" style={{marginTop: '20px'}}>No se han podido cargar o no existen ventas</Typography>
         }
       </CardContent>
     </Card>

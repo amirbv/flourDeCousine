@@ -6,27 +6,30 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 import LinkIcon from '@material-ui/icons/Link';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import { Card, CardContent, Typography, Button } from '@material-ui/core';
 import { amber } from '@material-ui/core/colors';
 
-import CreateBookForm from './CreateBookForm';
-import UpdateBookModal from './UpdateBookModal';
-import { getBooksList, removeBook, addBook, updateBook } from '../../../utils/request';
+import CreatePostForm from './CreatePostForm';
+import UpdatePostModal from './UpdatePostModal';
 
-export default function BooksTable({ user }) {
-  const [books, setBooks] = useState([]);
+import { addPost, updatePost, getPostsList, removePost } from '../../../utils/request';
+
+export default function PostsTable({ user }) {
+  const [posts, setPosts] = useState([]);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
 
-  const getBooks = useCallback(async () => {
+  const getPosts = useCallback(async () => {
     try {
-      const { data } = await getBooksList();
+      const { data } = await getPostsList();
       if (data) {
-        setBooks(data);
+        setPosts(data);
       }
     } catch (error) {
       console.log(error);
@@ -34,11 +37,11 @@ export default function BooksTable({ user }) {
   }, []);
 
   useEffect(() => {
-    getBooks();
-  }, [getBooks]);
+    getPosts();
+  }, [getPosts]);
 
 
-  const deleteBook = async (id) => {
+  const deletePost = async (id) => {
     const result = await swal.fire({
       icon: 'warning',
       title: '¿Estas seguro?',
@@ -51,30 +54,35 @@ export default function BooksTable({ user }) {
 
     if (result.isConfirmed) {
       try {
-        await removeBook(user.token, id);
+        await removePost(user.token, id);
         swal.fire({
           icon: "success",
-          title: "El libro fue eliminado correctamente",
+          title: "El Post fue eliminado correctamente",
           timer: 1500,
           showConfirmButton: false
         });
-        await getBooks();
+        await getPosts();
       } catch (error) {
         swal.fire({
           icon: "error",
-          title: "Hubo un error intente nuevamente"
+          title: "Hubo un error intente nuevamente",
+          text: error.message
         });
       }
     }
   }
 
-  const createNewBook = async (data) => {
+  const createNewPost = async (data) => {
     let formData = new FormData();
+    console.log(data);
 
     const DATA = { ...data }
     for (const attribute in DATA) {
       if (attribute === 'image') {
         formData.append(attribute, DATA[attribute][0]);
+      }
+      else if (attribute === 'ingredients' && DATA[attribute] === '') {
+        continue;
       }
       else {
         formData.append(attribute, DATA[attribute]);
@@ -90,13 +98,13 @@ export default function BooksTable({ user }) {
     try {
       setOpenCreate(false);
       swal.fire({
-        title: 'Agregando libro',
+        title: 'Creando post',
         showConfirmButton: false,
         willOpen: () => {
           swal.showLoading()
         }
       });
-      const response = await addBook(user.token, formData);
+      const response = await addPost(user.token, formData);
       console.log(response);
       if (response.status === 400 || response.status === 405) {
         swal.fire({
@@ -111,12 +119,12 @@ export default function BooksTable({ user }) {
 
         await swal.fire({
           icon: "success",
-          title: "El libro fue agregado correctamente",
+          title: "El post fue creado correctamente",
           timer: 1500,
           showConfirmButton: false
         });
         
-        await getBooks();
+        await getPosts();
       }
     } catch (error) {
       console.log({error})
@@ -128,16 +136,16 @@ export default function BooksTable({ user }) {
     }
   }
 
-  const handleOpenUpdate = (book) => {
-    setSelectedBook(book);
+  const handleOpenUpdate = (post) => {
+    setSelectedPost(post);
     setOpenUpdate(true);
   }
   const handleCloseUpdate = () => {
     setOpenUpdate(false);
-    setSelectedBook(null);
+    setSelectedPost(null);
   }
 
-  const editBook = async ({ id, data }) => {
+  const editPost = async ({ id, data }) => {
     let formData = new FormData();
 
     const DATA = { ...data }
@@ -145,7 +153,7 @@ export default function BooksTable({ user }) {
       if (attribute === 'image' && typeof DATA[attribute][0] === 'undefined') {
         continue;
       }
-      else if (attribute === 'url' && DATA[attribute] === '') {
+      else if (attribute === 'ingredients' && DATA[attribute] === '') {
         continue;
       }
       else if (attribute === 'image' && typeof DATA[attribute][0] !== 'undefined') {
@@ -166,7 +174,7 @@ export default function BooksTable({ user }) {
           swal.showLoading()
         }
       });
-      const response = await updateBook(user.token, formData, id);
+      const response = await updatePost(user.token, formData, id);
       if (response.status >= 400) {
         swal.fire({
           icon: 'error',
@@ -180,12 +188,12 @@ export default function BooksTable({ user }) {
 
         await swal.fire({
           icon: "success",
-          title: "El libro fue actualizado correctamente",
+          title: "El post fue actualizado correctamente",
           timer: 1500,
           showConfirmButton: false
         });
         
-        await getBooks();
+        await getPosts();
       }
     } catch (error) {
       console.log({error})
@@ -203,53 +211,62 @@ export default function BooksTable({ user }) {
     <>
       <Card>
         <CardContent>
-          <Typography variant="h5">Todos los libros</Typography>
+          <Typography variant="h5">Todos los posts del blog</Typography>
           <Button
             style={{ color: amber[700], margin: '20px 0' }}
             onClick={() => setOpenCreate(true)}
-          >Añadir libro</Button>
+          >Añadir post</Button>
           <Table size="small">
             <TableHead>
               <TableRow>
                 <TableCell>N°</TableCell>
                 <TableCell>Titulo</TableCell>
-                <TableCell>Autor</TableCell>
-                <TableCell>Editorial</TableCell>
-                <TableCell>Precio</TableCell>
+                <TableCell>Ingredientes</TableCell>
+                <TableCell>Descripción</TableCell>
                 <TableCell>Imagen</TableCell>
                 <TableCell>Fecha de creación</TableCell>
                 <TableCell>Acciones</TableCell>
               </TableRow>
             </TableHead>
             {
-              books.length > 0 && (
+              posts.length > 0 && (
                 <TableBody>
                   {
-                    books.map((book, index) => (
-                      <TableRow key={book._id}>
+                    posts.map((post, index) => (
+                      <TableRow key={post._id}>
                         <TableCell>{++index}</TableCell>
-                        <TableCell>{book.title}</TableCell>
-                        <TableCell>{book.author}</TableCell>
-                        <TableCell>{book.publisher}</TableCell>
-                        <TableCell>{book.price}</TableCell>
+                        <TableCell>{post.title}</TableCell>
                         <TableCell align="center">
-                          <a href={book.imageURL} target="_blank" rel="noopener noreferrer">
+                          {
+                            post.ingredients && <CheckBoxIcon />
+                          }
+                          {
+                            !(post.ingredients) && <CancelPresentationIcon />
+                          }
+                        </TableCell>
+                        <TableCell align="center">
+                          {
+                            post.content && <CheckBoxIcon />
+                          }
+                        </TableCell>
+                        <TableCell align="center">
+                          <a href={post.imageURL} target="_blank" rel="noopener noreferrer">
                             <LinkIcon />
                           </a>
                         </TableCell>
-                        <TableCell>{book.created_at}</TableCell>
+                        <TableCell>{post.created_at}</TableCell>
                         <TableCell>
                           <Button
                             color="primary"
                             title="Edit"
-                            onClick={() => handleOpenUpdate(book)}
+                            onClick={() => handleOpenUpdate(post)}
                           >
                             <BorderColorIcon />
                           </Button>
                           <Button
                             color="secondary"
                             title="Delete"
-                            onClick={() => deleteBook(book._id)}
+                            onClick={() => deletePost(post._id)}
                           >
                             <DeleteIcon />
                           </Button>
@@ -262,14 +279,14 @@ export default function BooksTable({ user }) {
             }
           </Table>
           {
-            books.length === 0 && <Typography align="center" style={{marginTop: '20px'}}>No se han podido cargar los libros</Typography>
+            posts.length === 0 && <Typography align="center" style={{marginTop: '20px'}}>No se han podido cargar los libros</Typography>
           }
         </CardContent>
       </Card>
     
-      <CreateBookForm open={openCreate} handleOpen={()=>setOpenCreate(false)} onCreate={createNewBook} />
+      <CreatePostForm open={openCreate} handleOpen={()=>setOpenCreate(false)} onCreate={createNewPost} />
       
-      <UpdateBookModal open={openUpdate} handleOpen={handleCloseUpdate} onUpdate={editBook} book={selectedBook} />
+      <UpdatePostModal open={openUpdate} handleOpen={handleCloseUpdate} onUpdate={editPost} post={selectedPost} />
     </>
   )
 }

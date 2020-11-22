@@ -14,16 +14,8 @@ import { TextField, Button, Input, FormHelperText, FormControl, InputLabel } fro
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];
 const schema = yup.object().shape({
   title: yup.string().required("El titulo es requerido"),
-  description: yup.string().required("La descripción es requerida"),
-  author: yup.string().required("El autor es requerido"),
-  publisher: yup.string().required("La editorial es requerida"),
-  price: yup.number()
-    .transform(value => (isNaN(value) ? undefined : value))
-    .typeError('Debe ser un numero')
-    .positive('Debe ser un numero positivo')
-    .required("El precio es requerido"),
-  url: yup.string().url('La url no tiene un formato válido')
-    .required("La url del libro es requerida"),
+  ingredients: yup.string().notRequired(),
+  content: yup.string().required("La descripción es requerida"),
   image: yup.mixed()
     .nullable()
     .required("La imagen es requerida")
@@ -31,9 +23,8 @@ const schema = yup.object().shape({
       value => !value || (value && SUPPORTED_FORMATS.includes(value[0]?.type))
     )
 });
-// titulo, descripción, autor, editorial, imagen y precio.
 
-export default function CreateBookForm({ open, handleOpen, onCreate }) {
+export default function CreatePostForm({ open, handleOpen, onCreate }) {
 
   const { register, handleSubmit, errors } = useForm({
     mode: "onSubmit",
@@ -42,10 +33,10 @@ export default function CreateBookForm({ open, handleOpen, onCreate }) {
 
   return (
     <Dialog open={open} onClose={handleOpen}>
-      <DialogTitle>Añadir un libro</DialogTitle>
+      <DialogTitle>Añadir un post</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Para añadir un libro necesitará su titulo, descripción, autor, editorial, imagen y precio.
+          Para añadir un post necesitará su titulo, descripción e imagen, ingredientes es un campo opcional en caso de ser una receta.
         </DialogContentText>
         <form className="form" onSubmit={handleSubmit(onCreate)}>
           <div className="form-group">
@@ -66,64 +57,26 @@ export default function CreateBookForm({ open, handleOpen, onCreate }) {
               multiline
               type="text"
               margin="dense"
-              id="description"
+              id="ingredients"
+              label="Ingredientes"
+              name="ingredients"
+              inputRef={register}
+              error={errors?.ingredients ? true : false}
+              helperText={errors?.ingredients?.message}
+              fullWidth
+            />
+          </div>
+          <div className="form-group">
+            <TextField
+              multiline
+              type="text"
+              margin="dense"
+              id="content"
               label="Descripción"
-              name="description"
+              name="content"
               inputRef={register}
-              error={errors?.description ? true : false}
-              helperText={errors?.description?.message}
-              fullWidth
-            />
-          </div>
-          <div className="form-group">
-            <TextField
-              type="text"
-              margin="dense"
-              id="author"
-              label="Autor"
-              name="author"
-              inputRef={register}
-              error={errors?.author ? true : false}
-              helperText={errors?.author?.message}
-              fullWidth
-            />
-          </div>
-          <div className="form-group">
-            <TextField
-              type="text"
-              margin="dense"
-              id="publisher"
-              label="Editorial"
-              name="publisher"
-              inputRef={register}
-              error={errors?.publisher ? true : false}
-              helperText={errors?.publisher?.message}
-              fullWidth
-            />
-          </div>
-          <div className="form-group">
-            <TextField
-              type="number"
-              margin="dense"
-              id="price"
-              label="Precio"
-              name="price"
-              inputRef={register}
-              error={errors?.price ? true : false}
-              helperText={errors?.price?.message}
-              fullWidth
-            />
-          </div>
-          <div className="form-group">
-            <TextField
-              type="text"
-              margin="dense"
-              id="url"
-              label="URL del libro en PDF"
-              name="url"
-              inputRef={register}
-              error={errors?.url ? true : false}
-              helperText={errors?.url?.message}
+              error={errors?.content ? true : false}
+              helperText={errors?.content?.message}
               fullWidth
             />
           </div>
@@ -156,3 +109,4 @@ export default function CreateBookForm({ open, handleOpen, onCreate }) {
     </Dialog>
   );
 }
+

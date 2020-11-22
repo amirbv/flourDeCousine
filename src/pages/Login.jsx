@@ -39,6 +39,7 @@ export default function Login() {
       await swal.fire({
         icon: 'success',
         title: 'Has iniciado sesión exitosamente',
+        showConfirmButton: false,
         timer: 1500
       })
       history.push('/dashboard');

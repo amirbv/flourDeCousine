@@ -88,8 +88,6 @@ body {
 
 .book-card {
   height: 100%;
-  cursor: pointer;
-
 }
 .book-card .book-card-image {
   position: relative;

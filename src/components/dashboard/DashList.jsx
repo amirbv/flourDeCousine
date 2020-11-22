@@ -7,7 +7,7 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 
-export default function DashList() {
+export default function DashList({ user }) {
   const { path } = useRouteMatch();
 
   return (
@@ -25,19 +25,21 @@ export default function DashList() {
           </CardContent>
         </Link>
       </Card>
-      <Card style={{height: '100%'}}>
-        <Link to={`${path}/ventas`} style={{textDecoration: 'none', color: 'inherit'}}>
-          <CardMedia
-            className="dash-icon"
-            component="div"
-          ><MonetizationOnIcon fontSize="inherit" /></CardMedia>
-          <CardContent>
-            <Typography component="h3" variant="h5" align="center">
-              Ventas
-            </Typography>
-          </CardContent>
-        </Link>
-      </Card>
+      {
+        (user?.role === 'admin') && <Card style={{ height: '100%' }}>
+          <Link to={`${path}/ventas`} style={{textDecoration: 'none', color: 'inherit'}}>
+            <CardMedia
+              className="dash-icon"
+              component="div"
+            ><MonetizationOnIcon fontSize="inherit" /></CardMedia>
+            <CardContent>
+              <Typography component="h3" variant="h5" align="center">
+                Ventas
+              </Typography>
+            </CardContent>
+          </Link>
+        </Card>
+      }
       <Card style={{height: '100%'}}>
         <Link to={`${path}/posts`} style={{textDecoration: 'none', color: 'inherit'}}>
           <CardMedia
@@ -51,19 +53,21 @@ export default function DashList() {
           </CardContent>
         </Link>
       </Card>
-      <Card style={{height: '100%'}}>
-        <Link to={`${path}/libros`} style={{textDecoration: 'none', color: 'inherit'}}>
-          <CardMedia
-            className="dash-icon"
-            component="div"
-          ><MenuBookIcon fontSize="inherit" /></CardMedia>
-          <CardContent>
-            <Typography component="h3" variant="h5" align="center">
-              Libros
-            </Typography>
-          </CardContent>
-        </Link>
-      </Card>
+      {
+        (user?.role === 'admin') && <Card style={{ height: '100%' }}>
+          <Link to={`${path}/libros`} style={{textDecoration: 'none', color: 'inherit'}}>
+            <CardMedia
+              className="dash-icon"
+              component="div"
+            ><MenuBookIcon fontSize="inherit" /></CardMedia>
+            <CardContent>
+              <Typography component="h3" variant="h5" align="center">
+                Libros
+              </Typography>
+            </CardContent>
+          </Link>
+        </Card>
+      }
     </div>
   )
 }
