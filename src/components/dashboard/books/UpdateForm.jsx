@@ -114,6 +114,7 @@ export default function UpdateForm({ onUpdate, handleOpen, book }) {
       <div className="form-group">
         <TextField
           type="number"
+          InputProps={{ inputProps: { step: 0.01 }}}
           margin="dense"
           id="price"
           label="Precio"
