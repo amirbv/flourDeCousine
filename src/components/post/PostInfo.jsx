@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, CardContent, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import BackLink from '../global/BackLink';
 
 export default function PostInfo({ post }) {
