@@ -27,6 +27,10 @@ body {
 
 }
 
+.snipcart-modal__container {
+  z-index: 5000;
+}
+
 .nav-link {
   text-decoration: none; 
   color: inherit;
