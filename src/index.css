@@ -16,7 +16,7 @@ body {
 .app {
   background-color: var(--beige);
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
 .app.login-page {
@@ -29,6 +29,10 @@ body {
 
 .snipcart-modal__container {
   z-index: 5000;
+}
+
+section {
+  min-height: 80vh;
 }
 
 .nav-link {
@@ -157,6 +161,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 80vh;
 }
 .form-centered h2{
   margin-bottom: 20px;
