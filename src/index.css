@@ -16,7 +16,7 @@ body {
 .app {
   background-color: var(--beige);
   position: relative;
-  min-height: 80vh;
+  min-height: 85vh;
 }
 
 .app.login-page {
